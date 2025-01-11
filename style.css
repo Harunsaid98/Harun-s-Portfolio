@@ -1,0 +1,326 @@
+/* === Global Styles === */
+/* Resets browser default styles for consistency */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* Modern and professional font */
+}
+
+/* Light/Dark Theme Variables */
+:root {
+    --bg-color: #ffffff; /* Background color for light mode */
+    --text-color: #333333; /* Text color for light mode */
+    --accent-color: #1876f2; /* Accent color for links and buttons */
+    --nav-bg-color: #f9f9f9; /* Navigation bar background color */
+    --card-bg-color: #f5f5f5; /* Card background color */
+}
+
+/* Dark mode overrides */
+.dark-theme {
+    --bg-color: #121212; /* Background color for dark mode */
+    --text-color: #ffffff; /* Text color for dark mode */
+    --accent-color: #1e90ff; /* Slightly lighter accent for dark mode */
+    --nav-bg-color: #1c1c1c; /* Navigation bar background for dark mode */
+    --card-bg-color: #2c2c2c; /* Card background for dark mode */
+}
+
+/* Apply global background and text color */
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6; /* Improves readability */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for theme changes */
+}
+
+/* === Navigation Bar === */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+    background: var(--nav-bg-color);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Ensures it stays on top */
+}
+
+/* Navigation links */
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+    color: var(--accent-color);
+}
+
+/* Navigation icons */
+.nav-links i {
+    margin-right: 8px; /* Adds space between icon and text */
+    color: var(--text-color);
+    transition: color 0.3s;
+}
+
+.nav-links a:hover i {
+    color: var(--accent-color);
+}
+
+/* Center profile image */
+.nav-center img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* Circular profile picture */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--text-color);
+    background: var(--bg-color);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.dark-mode-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* === Hero Section === */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: var(--text-color);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.resume-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 25px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.resume-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+/* === Projects Section === */
+#projects, #projects-preview {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+#projects-preview {
+    background-color: var(--card-bg-color); /* Adds contrast for preview section */
+}
+
+.projects-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* Makes it responsive */
+}
+
+.project-card {
+    background: var(--card-bg-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: left;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+    transform: translateY(-10px); /* Lifts card on hover */
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.project-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.project-card p {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+.project-card .btn {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: var(--accent-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.project-card .btn:hover {
+    background-color: #0056b3;
+}
+
+/* === Contact Section === */
+/* === Contact Section === */
+#contact {
+    padding: 50px 20px;
+    background-color: var(--nav-bg-color); /* Subtle background color */
+    text-align: center;
+    color: var(--text-color);
+    border-top: 1px solid rgba(0, 0, 0, 0.1); /* Adds subtle top border */
+}
+
+#contact h2 {
+    font-size: 2rem;
+    color: var(--accent-color); /* Accent color for heading */
+    margin-bottom: 10px;
+}
+
+#contact p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: rgba(0, 0, 0, 0.7); /* Slightly muted text color for description */
+}
+
+/* Contact Grid Layout */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive layout */
+    gap: 20px; /* Space between items */
+    justify-items: center; /* Center-aligns items in grid */
+}
+
+/* Contact Cards */
+.contact-card {
+    background: var(--card-bg-color); /* Matches card style */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+.contact-card:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+/* Contact Icons */
+.contact-card i {
+    font-size: 2.5rem; /* Larger icon size */
+    color: var(--accent-color); /* Icons use the accent color */
+    margin-bottom: 10px;
+}
+
+.contact-card h3 {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.contact-card p {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.contact-card a {
+    text-decoration: none; /* Removes underline */
+    color: var(--accent-color); /* Links use accent color */
+}
+
+.contact-card a:hover {
+    text-decoration: underline; /* Adds underline on hover */
+}
+
+
+/* === About Section === */
+#about {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+#about h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#about p {
+    font-size: 1.1rem;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    line-height: 1.6;
+}
+
+/* === Footer === */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background: var(--nav-bg-color);
+}
+
+/* === Back to Top Button === */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+#back-to-top:hover {
+    background: #0056b3;
+    transform: scale(1.1);
+}
+
+#back-to-top i {
+    font-size: 18px;
+}

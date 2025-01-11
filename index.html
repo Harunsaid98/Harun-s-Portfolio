@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harun's Portfolio</title>
+    <!-- Link to CSS file for styles -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Link to JavaScript file for functionality -->
+    <script defer src="script.js"></script>
+    <!-- Font Awesome for icons -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <meta name="description" content="Harun's Portfolio - Aspiring Backend Developer passionate about databases, system management, and cybersecurity.">
+
+  </head>
+  <body>
+    <!-- Include Header -->
+    <!-- The header will be dynamically loaded from header.html -->
+    <div id="header-container"></div>
+
+    <!-- Hero Section -->
+    <!-- Main introductory section with a short bio and a resume link -->
+    <section class="hero">
+      <h1>Hi, I'm Harun</h1>
+      <p>
+        An Aspiring Backend Developer with a passion for databases, system
+        management, and cybersecurity.
+      </p>
+      <!-- Link to resume file -->
+      <a href="resume.pdf" class="resume-btn" target="_blank">View My Resume</a>
+    </section>
+
+    <!-- Projects Preview Section -->
+    <!-- Displays a preview of selected projects -->
+    <section id="projects-preview">
+      <h2>My Projects</h2>
+      <div class="projects-container">
+        <!-- Project Card 1 -->
+        <div class="project-card">
+          <img src="images/coming-soon.jpg" alt="Portfolio Website" />
+          <h3>Portfolio Website</h3>
+          <p>A showcase of my frontend and backend development skills.</p>
+          <!-- Link to the full projects page -->
+          <a href="projects.html" class="btn">View More</a>
+        </div>
+        <!-- Project Card 2 -->
+        <div class="project-card">
+          <img src="images/coming-soon.jpg" alt="Coming Soon" />
+          <h3>Coming Soon</h3>
+          <p>
+            Stay tuned for more projects as I dive deeper into backend
+            development!
+          </p>
+          <!-- Link to the full projects page -->
+          <a href="projects.html" class="btn">View More</a>
+        </div>
+        <!-- Add more project cards here in the same format as above -->
+        <!-- Example for adding another project:
+            <div class="project-card">
+                <img src="images/project3.jpg" alt="Project Title">
+                <h3>Project Title</h3>
+                <p>Short description of the project.</p>
+                <a href="projects.html" class="btn">View More</a>
+            </div>
+            -->
+        <!-- ###Third Project: Group Website -->
+        <div class="project-card">
+          <img src="images/smartliving.png" alt="Group Project Website" />
+          <h3>Group Project Website</h3>
+          <p>
+            Website for our Bachelor's group project, showcasing our work and
+            collaboration.
+          </p>
+          <!-- Link to your group site -->
+          <a
+            href="https://itfag.usn.no/grupper/D13-23/"
+            target="_blank"
+            class="btn"
+            >Visit Website</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Include Footer -->
+    <!-- The footer will be dynamically loaded from footer.html -->
+    <div id="footer-container"></div>
+
+    <!-- Back to Top Button -->
+    <!-- Button to quickly scroll to the top of the page -->
+    <button id="back-to-top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+  </body>
+</html>
