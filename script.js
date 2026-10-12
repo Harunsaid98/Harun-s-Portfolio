@@ -1,4 +1,4 @@
-// Load the shared navigation and footer on every page.
+// Load the header and footer
 document.addEventListener("DOMContentLoaded", async () => {
   const savedTheme = (() => {
     try {
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
           localStorage.setItem("portfolio-theme", next);
         } catch {
-          // Browsers may block storage. The theme still works for this page.
+          // Continue using the selected theme if storage is unavailable
         }
         updateThemeButton();
       });
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (year) year.textContent = String(new Date().getFullYear());
   }
 
-  // Create one accessible Back to top button (rather than duplicating IDs).
+  // Back to Top Button
   const backToTop = document.createElement("button");
   backToTop.type = "button";
   backToTop.id = "back-to-top";
