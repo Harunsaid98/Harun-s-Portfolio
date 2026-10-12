@@ -126,20 +126,30 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .lab-system strong { display: block; font-size: 12px; letter-spacing: .01em; }
 .lab-system small { display: block; font-size: 11px; color: #b4c6dc; }
 .lab-connection {
-  width: 2px;
+  width: 60%;
   height: 28px;
   margin-inline: auto;
-  background: #6587af;
   position: relative;
+  border-bottom: 2px solid #6587af;
+}
+.lab-connection::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 28px;
+  background: #6587af;
 }
 .lab-connection::after {
   content: "";
-  width: 55%;
-  height: 2px;
-  background: #6587af;
   position: absolute;
-  left: -27%;
-  bottom: 0;
+  left: 0;
+  right: 0;
+  bottom: -9px;
+  height: 8px;
+  border-left: 2px solid #6587af;
+  border-right: 2px solid #6587af;
 }
 .lab-overview-devices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .lab-overview-footer {
