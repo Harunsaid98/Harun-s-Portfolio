@@ -1,4 +1,4 @@
-/* Color tokens: neutral surfaces, blue accents, readable contrast. */
+/* === Global Styles === */
 :root {
   color-scheme: light;
   --bg: #f9fbfe;
@@ -42,7 +42,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .skip-link { position: absolute; top: -60px; left: 12px; background: var(--text); color: var(--bg); padding: 9px 14px; z-index: 999; border-radius: 5px; }
 .skip-link:focus { top: 10px; }
 
-/* Shared navigation (photo intentionally removed). */
+/* === Navigation Bar === */
 .navigation { background: var(--surface); border-bottom: 1px solid var(--border); }
 .nav-inner { max-width: 1200px; margin: auto; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; gap: 22px; }
 .brand { display: inline-flex; gap: 11px; align-items: center; text-decoration: none; font-weight: 750; font-size: 16px; letter-spacing: -0.025em; white-space: nowrap; }
@@ -54,7 +54,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--accent); border-color: var(--accent); }
 .theme-toggle { border: 1px solid var(--border); background: var(--tint); color: var(--text); border-radius: 11px; padding: 7px 11px; cursor: pointer; font-size: 18px; }
 
-/* Home. */
+/* === Homepage === */
 .hero { padding-block: clamp(78px, 10vw, 136px); }
 .hero-content { max-width: 780px; }
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.11em; font-size: 12px; font-weight: 750; margin: 0 0 20px; }
@@ -71,7 +71,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .skill-pills span { display: inline-block; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 650; }
 
-/* Project cards. */
+/* === Projects Section === */
 .section { padding-block: 76px; }
 .section-tinted { background: var(--tint); border-block: 1px solid var(--border); }
 .section-heading { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: 26px; }
@@ -92,7 +92,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .project-status { margin-top: auto; font-size: 12px; border: 1px solid var(--border); border-radius: 999px; padding: 5px 10px; color: var(--muted); }
 .approach { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
 
-/* Secondary pages. */
+/* === About and Contact Pages === */
 .page-intro { padding-block: 80px 52px; border-bottom: 1px solid var(--border); }
 .page-intro .eyebrow { margin-bottom: 12px; }
 .page-intro h1 { font-size: clamp(36px, 5vw, 52px); line-height: 1.2; letter-spacing: -.045em; margin: 0 0 14px; }
@@ -110,7 +110,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .contact-card p { color: var(--muted); margin: 0 0 14px; font-size: 14px; }
 .contact-card a { overflow-wrap: anywhere; }
 
-/* Footer and utilities. */
+/* === Footer and Back to Top Button === */
 .site-footer { background: var(--surface); border-top: 1px solid var(--border); padding: 35px 0 18px; }
 .footer-inner { display: flex; align-items: start; justify-content: space-between; gap: 22px; }
 .footer-inner strong { font-size: 16px; }
