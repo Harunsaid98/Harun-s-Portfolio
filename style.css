@@ -55,7 +55,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .theme-toggle { border: 1px solid var(--border); background: var(--tint); color: var(--text); border-radius: 11px; padding: 7px 11px; cursor: pointer; font-size: 18px; }
 
 /* === Homepage === */
-.hero { padding-block: clamp(78px, 10vw, 136px); }
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(300px, 0.9fr);
+  gap: clamp(34px, 5vw, 68px);
+  align-items: center;
+  padding-block: clamp(78px, 10vw, 125px);
+}
 .hero-content { max-width: 780px; }
 .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 0.11em; font-size: 12px; font-weight: 750; margin: 0 0 20px; }
 .eyebrow-dot { display: inline-block; height: 8px; width: 8px; border-radius: 50%; background: var(--accent); vertical-align: middle; margin-right: 6px; }
@@ -70,6 +76,79 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .button-outline { background: var(--surface); color: var(--text); }
 .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .skill-pills span { display: inline-block; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 650; }
+
+/* === Home Lab Preview === */
+.lab-overview {
+  background: #15273f;
+  color: #f1f5fa;
+  border: 1px solid #304860;
+  border-radius: 18px;
+  padding: 23px;
+  box-shadow: 0 15px 36px rgba(20, 39, 63, 0.12);
+}
+.lab-overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #35485f;
+}
+.lab-overview-label { font-size: 13px; font-weight: 700; }
+.lab-overview-domain {
+  font-size: 11px;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  color: #abc7ed;
+}
+.lab-overview-main { padding-block: 24px 12px; }
+.lab-system {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  background: #1d344f;
+  border: 1px solid #38516d;
+  border-radius: 11px;
+  min-width: 0;
+}
+.lab-system-primary { max-width: 205px; margin-inline: auto; }
+.lab-system-icon {
+  display: grid;
+  place-items: center;
+  width: 33px;
+  height: 33px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  color: #bcd4fb;
+  background: #314d6b;
+  font: 700 11px ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+.lab-system strong { display: block; font-size: 12px; letter-spacing: .01em; }
+.lab-system small { display: block; font-size: 11px; color: #b4c6dc; }
+.lab-connection {
+  width: 2px;
+  height: 28px;
+  margin-inline: auto;
+  background: #6587af;
+  position: relative;
+}
+.lab-connection::after {
+  content: "";
+  width: 55%;
+  height: 2px;
+  background: #6587af;
+  position: absolute;
+  left: -27%;
+  bottom: 0;
+}
+.lab-overview-devices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lab-overview-footer {
+  border-top: 1px solid #35485f;
+  margin: 15px 0 0;
+  padding-top: 14px;
+  color: #b4c6dc;
+  font-size: 11px;
+}
 
 /* === Projects Section === */
 .section { padding-block: 76px; }
@@ -122,6 +201,10 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 #back-to-top { position: fixed; right: 23px; bottom: 23px; height: 42px; width: 42px; display: none; place-items: center; background: #1d56b3; color: #fff; border: none; border-radius: 12px; box-shadow: var(--shadow); font-size: 22px; cursor: pointer; }
 #back-to-top.is-visible { display: grid; }
 
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; }
+  .lab-overview { max-width: 500px; }
+}
 @media (max-width: 850px) {
   .projects-container, .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .about-layout { grid-template-columns: 1fr; }
