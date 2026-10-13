@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Contact Harun about IT infrastructure, networking and systems opportunities.">
   <title>Contact | Harun</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme === "dark" || (!savedTheme && matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    } catch {
+      // Use the default theme if preferences are unavailable
+    }
+  </script>
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
@@ -34,7 +44,7 @@
         <article class="contact-card">
           <span class="card-icon" aria-hidden="true">NO</span>
           <h2>Location</h2>
-          <p>Based in Norway.</p>
+          <p>Based in the Oslo / Bærum area, Norway.</p>
           <a class="text-link" href="projects.html">Browse my work <span aria-hidden="true">→</span></a>
         </article>
       </div>

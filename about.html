@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="About Harun: Computer Engineering graduate from USN focused on networking and IT infrastructure.">
   <title>About | Harun</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme === "dark" || (!savedTheme && matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    } catch {
+      // Use the default theme if preferences are unavailable
+    }
+  </script>
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
@@ -15,14 +25,14 @@
     <section class="page-intro container">
       <p class="eyebrow">Portfolio / About</p>
       <h1>About me</h1>
-      <p>Computer engineering graduate, learning through real infrastructure problems.</p>
+      <p>Computer Engineering graduate focused on networking and IT systems.</p>
     </section>
     <section class="section container about-layout">
       <div class="about-panel">
         <h2>My background</h2>
         <p>I'm Harun, a Computer Engineering graduate from the University of South-Eastern Norway (USN). I'm working toward a career in networking, systems and IT infrastructure.</p>
-        <p>My practical labs cover Windows Server, Active Directory, file permissions, VLANs, routing and troubleshooting. I prefer understanding why a system behaves a certain way rather than simply following setup steps.</p>
-        <p>My projects document the environment, the issue, what I tested and the result — including problems I encountered along the way.</p>
+        <p>I use VMware, Windows Server and Cisco Packet Tracer to practise problems an IT technician might face. My labs cover Active Directory, file permissions, VLANs, routing and DHCP.</p>
+        <p>In one file-server lab, a group change didn't immediately fix a user's access. I traced it to the old Windows logon token and verified the result after the user signed in again. I include mistakes like this in my reports because the troubleshooting matters.</p>
         <a class="text-link" href="projects.html">See my projects <span aria-hidden="true">→</span></a>
       </div>
       <aside class="about-panel about-details" aria-labelledby="focus-title">

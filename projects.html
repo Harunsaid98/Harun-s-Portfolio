@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explore Harun's Windows Server, Active Directory, file services, networking and academic projects.">
   <title>Projects | Harun</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme === "dark" || (!savedTheme && matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    } catch {
+      // Use the default theme if preferences are unavailable
+    }
+  </script>
   <link rel="stylesheet" href="style.css">
   <script defer src="script.js"></script>
 </head>
@@ -15,7 +25,7 @@
     <section class="page-intro container">
       <p class="eyebrow">Portfolio / Projects</p>
       <h1>Technical projects</h1>
-      <p>Practical lab work with clear configurations, testing, mistakes and evidence.</p>
+      <p>Windows Server reports contain screenshots and test results. Networking write-ups contain configurations and verification commands; a few final screenshots are still pending.</p>
     </section>
     <section class="section container" aria-labelledby="infrastructure-title">
       <div class="section-heading"><div><h2 id="infrastructure-title">Windows &amp; infrastructure</h2><p>Support-style labs in a test Active Directory environment.</p></div></div>
@@ -25,14 +35,14 @@
           <p class="project-type">Windows Server 2025 · AD DS</p>
           <h3>Domain Administration &amp; Auditing</h3>
           <p>Seven support tickets: AD health, least-privilege administration, logon auditing, delegated password resets, RSAT, trust repair and protected objects.</p>
-          <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/windows-server/project-01-domain-administration" target="_blank" rel="noopener noreferrer">Read case study &amp; evidence ↗</a>
+          <div class="project-links"><a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/windows-server/project-01-domain-administration" target="_blank" rel="noopener noreferrer">Case study ↗</a><a class="text-link secondary-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/blob/main/windows-server/project-01-domain-administration/Project1_Domain_Administration_Identity_Auditing.pdf" target="_blank" rel="noopener noreferrer">PDF with screenshots ↗</a></div>
         </article>
         <article class="project-card">
           <div class="card-icon" aria-hidden="true">FS</div>
           <p class="project-type">Windows Server 2025 · SMB / NTFS</p>
           <h3>File Server, Access &amp; Recovery</h3>
           <p>AGDLP-style access, file shares, mapped drives, department transfers, file restoration and investigation of stale logon tokens.</p>
-          <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/windows-server/project-02-file-server-access-recovery" target="_blank" rel="noopener noreferrer">Read case study &amp; evidence ↗</a>
+          <div class="project-links"><a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/windows-server/project-02-file-server-access-recovery" target="_blank" rel="noopener noreferrer">Case study ↗</a><a class="text-link secondary-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/blob/main/windows-server/project-02-file-server-access-recovery/P2_File_Server_Access_and_Recovery_FINAL.pdf" target="_blank" rel="noopener noreferrer">PDF with screenshots ↗</a></div>
         </article>
       </div>
     </section>
@@ -66,13 +76,13 @@
             <p class="project-type">Routing · DHCP</p>
             <h3>DHCP Per VLAN</h3>
             <p>Router-on-a-stick and separate DHCP pools for IT and Sales, including troubleshooting an APIPA address.</p>
-            <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/networking/project-07-dhcp-per-vlan" target="_blank" rel="noopener noreferrer">View lab &amp; remaining checks ↗</a>
+            <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/networking/project-07-dhcp-per-vlan" target="_blank" rel="noopener noreferrer">View lab ↗</a>
           </article>
         </div>
       </div>
     </section>
     <section class="section container" aria-labelledby="other-title">
-      <div class="section-heading"><div><h2 id="other-title">Other work &amp; what's next</h2><p>Academic teamwork and future infrastructure projects.</p></div></div>
+      <div class="section-heading"><div><h2 id="other-title">Academic project</h2><p>A completed university group project.</p></div></div>
       <div class="projects-container">
         <article class="project-card">
           <div class="card-icon" aria-hidden="true">US</div>
@@ -81,13 +91,7 @@
           <p>Website created as part of a bachelor's group project at USN.</p>
           <a class="text-link" href="https://itfag.usn.no/grupper/D13-23/" target="_blank" rel="noopener noreferrer">Visit group website ↗</a>
         </article>
-        <article class="project-card planned-card">
-          <div class="card-icon" aria-hidden="true">IT</div>
-          <p class="project-type">Planned lab · Not deployed</p>
-          <h3>Company IT Infrastructure Lab</h3>
-          <p>A fictional company intranet with Active Directory authentication, helpdesk tickets and realistic support incidents. Development is planned.</p>
-          <span class="project-status">Coming later</span>
-        </article>
+
       </div>
     </section>
   </main>

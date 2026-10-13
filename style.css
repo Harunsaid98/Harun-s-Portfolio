@@ -238,3 +238,16 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+/* === Portfolio refinements === */
+.navigation { position: sticky; top: 0; z-index: 100; }
+.hero { position: relative; }
+.lab-overview { background: linear-gradient(145deg, #1b314d, #112238); }
+.hero-goal { max-width: 650px; color: var(--muted); font-size: 14px; margin: -7px 0 25px; padding-left: 13px; border-left: 3px solid var(--accent); }
+.project-links { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 18px; margin-top: auto; }
+.secondary-link { color: var(--muted); font-weight: 600; }
+.theme-toggle { width: 40px; height: 38px; display: grid; place-items: center; }
+.theme-toggle svg { width: 19px; height: 19px; }
+.theme-toggle .icon-sun { display: none; }
+html[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+@media (max-width: 600px) { .project-links { gap: 8px 16px; } .hero-goal { margin-top: -4px; } }
