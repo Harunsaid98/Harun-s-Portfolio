@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Windows Server 2025 Active Directory lab: seven verified support cases covering GPO, DNS, auditing and secure-channel repair.">
+  <title>Domain Administration & Auditing | Harun</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme === "dark" || (!savedTheme && matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    } catch {
+      // Use the default theme if preferences are unavailable
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header-container"></div>
+  <main id="main">
+    <div class="detail-container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="projects.html">Projects</a><span aria-hidden="true">/</span><span>Domain administration</span></nav>
+      <header class="detail-hero">
+        <div class="detail-kicker">Project 01 <span aria-hidden="true">·</span> Windows Server 2025</div>
+        <h1>Domain administration, identity &amp; auditing</h1>
+        <p class="detail-lead">Seven support-style cases from my <code>lab.local</code> environment. I checked the current state, made changes, and then tested the result from the domain workstation.</p>
+        <div class="detail-tags"><span>Active Directory</span><span>Group Policy</span><span>DNS</span><span>PowerShell</span><span>Auditing</span></div>
+        <div class="detail-actions">
+          <a class="button button-primary" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/blob/main/windows-server/project-01-domain-administration/Project1_Domain_Administration_Identity_Auditing.pdf" target="_blank" rel="noopener noreferrer">Full PDF with screenshots ↗</a>
+          <a class="button button-outline" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/windows-server/project-01-domain-administration" target="_blank" rel="noopener noreferrer">Source &amp; README ↗</a>
+        </div>
+      </header>
+      <div class="detail-columns">
+        <article class="detail-main">
+          <section class="detail-section" aria-labelledby="ad-overview">
+            <p class="eyebrow">Environment</p><h2 id="ad-overview">The lab setup</h2>
+            <p>I used a Windows Server 2025 evaluation domain controller, a Windows 11 Pro client, and separate standard and administrator accounts. The machines run in VMware, and I connect through Tailscale for remote management.</p>
+            <div class="detail-topology">
+              <div class="detail-node"><span class="detail-node-symbol">DC</span><div><strong>DC01 / lab.local</strong><small>Domain controller and DNS</small></div></div>
+              <span class="detail-path" aria-hidden="true">↕</span>
+              <div class="detail-node"><span class="detail-node-symbol">PC</span><div><strong>WIN11-IT-01</strong><small>Domain-joined Windows 11 client</small></div></div>
+            </div>
+            <p class="detail-hint">My everyday account was kept separate from the admin account so I could test permissions without automatically having administrator rights.</p>
+          </section>
+          <section class="detail-section" aria-labelledby="ad-cases">
+            <p class="eyebrow">What I tested</p><h2 id="ad-cases">Seven support cases</h2>
+            <div class="case-list">
+              <div class="case-entry"><span class="case-number">01</span><div><h3>Domain health and DNS</h3><p>Checked domain health and found that the domain controller was registering its Tailscale address in DNS. The client was actually using that address.</p></div></div>
+              <div class="case-entry"><span class="case-number">02</span><div><h3>Separate admin credentials</h3><p>Verified that the everyday account was not a local administrator. Administrative tools ran with separate credentials when elevation was required.</p></div></div>
+              <div class="case-entry"><span class="case-number">03</span><div><h3>Sign-in auditing</h3><p>Applied an audit policy through Group Policy and confirmed successful and failed logon events <code>4624</code> and <code>4625</code> on the client.</p></div></div>
+              <div class="case-entry"><span class="case-number">04</span><div><h3>Delegated password resets</h3><p>Allowed a helpdesk test account to reset Finance passwords, while confirming it could not reset HR passwords or perform domain-wide administration.</p></div></div>
+              <div class="case-entry"><span class="case-number">05</span><div><h3>Missing Group Policy console</h3><p>Installed the RSAT Group Policy Management tool after the management console was unavailable on the workstation.</p></div></div>
+              <div class="case-entry"><span class="case-number">06</span><div><h3>Broken domain trust</h3><p>Reproduced a trust relationship failure and repaired the workstation's secure channel without removing the PC from the domain.</p></div></div>
+              <div class="case-entry"><span class="case-number">07</span><div><h3>Protected AD object</h3><p>Investigated an administrator's Access denied error when deleting an account. The cause was accidental-deletion protection.</p></div></div>
+            </div>
+          </section>
+          <section class="detail-section" aria-labelledby="ad-example">
+            <p class="eyebrow">A closer look</p><h2 id="ad-example">Fixing a trust relationship failure</h2>
+            <div class="detail-steps">
+              <div><span>Problem</span><p>After a restart, the Windows workstation could no longer authenticate to the domain because its trust relationship had failed.</p></div>
+              <div><span>Investigation</span><p>I checked the secure channel rather than immediately removing and rejoining the computer account.</p></div>
+              <div><span>Resolution</span><p>I repaired the secure channel using <code>Test-ComputerSecureChannel -Repair</code> and retested domain access.</p></div>
+            </div>
+          </section>
+          <section class="detail-section" aria-labelledby="ad-lessons">
+            <p class="eyebrow">Takeaways</p><h2 id="ad-lessons">What I learned</h2>
+            <p>Having a Group Policy configured is not the same as proving it applied. I used client-side checks, including <code>gpresult</code> and <code>auditpol</code>, to confirm results.</p>
+            <p>Permission tests also need to run as the affected user. One early test accidentally ran with Administrator rights, so I began checking <code>whoami</code> before testing delegated access.</p>
+          </section>
+          <section class="detail-section detail-limitations" aria-labelledby="ad-limits">
+            <h2 id="ad-limits">Scope and limitations</h2>
+            <p>This was a personal VMware lab with a single domain controller and evaluation software. It was not a production environment. The domain controller's extra Tailscale DNS registration was documented as an issue to clean up.</p>
+          </section>
+        </article>
+        <aside class="detail-sidebar" aria-label="Project information">
+          <div class="detail-side-card"><h2>Project facts</h2><dl><dt>Platform</dt><dd>Windows Server 2025</dd><dt>Domain</dt><dd>lab.local</dd><dt>Client</dt><dd>Windows 11 Pro</dd><dt>Cases</dt><dd>7 support tasks</dd><dt>Evidence</dt><dd>PDF report + screenshots</dd></dl></div>
+          <div class="detail-side-card"><h2>See the evidence</h2><p>The original PDF contains configuration screenshots, commands and verification results.</p><a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/blob/main/windows-server/project-01-domain-administration/Project1_Domain_Administration_Identity_Auditing.pdf" target="_blank" rel="noopener noreferrer">Open the full report ↗</a></div>
+        </aside>
+      </div>
+      <nav class="detail-next" aria-label="Other projects"><a href="projects.html">← All projects</a><a href="file-server.html">Next: File server &amp; recovery →</a></nav>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+</body>
+</html>

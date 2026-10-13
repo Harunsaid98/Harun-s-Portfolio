@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Windows Server lab documenting AGDLP, SMB and NTFS permissions, Group Policy drive mapping, recovery and access troubleshooting.">
+  <title>File Server, Access & Recovery | Harun</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme === "dark" || (!savedTheme && matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    } catch {
+      // Use the default theme if preferences are unavailable
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header-container"></div>
+  <main id="main">
+    <div class="detail-container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="projects.html">Projects</a><span aria-hidden="true">/</span><span>File server</span></nav>
+      <header class="detail-hero">
+        <div class="detail-kicker">Project 02 <span aria-hidden="true">·</span> Windows Server 2025</div>
+        <h1>File server, access &amp; recovery</h1>
+        <p class="detail-lead">I built an <code>FS01</code> member server and worked through six user-support problems involving file shares, group permissions, mapped drives, and recovery.</p>
+        <div class="detail-tags"><span>Active Directory</span><span>SMB &amp; NTFS</span><span>AGDLP</span><span>Group Policy</span><span>Backup</span></div>
+        <div class="detail-actions"><a class="button button-primary" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/blob/main/windows-server/project-02-file-server-access-recovery/P2_File_Server_Access_and_Recovery_FINAL.pdf" target="_blank" rel="noopener noreferrer">Full PDF with screenshots ↗</a><a class="button button-outline" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/windows-server/project-02-file-server-access-recovery" target="_blank" rel="noopener noreferrer">Source &amp; README ↗</a></div>
+      </header>
+      <div class="detail-columns">
+        <article class="detail-main">
+          <section class="detail-section" aria-labelledby="fs-overview">
+            <p class="eyebrow">Environment</p><h2 id="fs-overview">How the file server was set up</h2>
+            <p>The lab runs on the same <code>lab.local</code> domain. I used a dedicated Windows Server 2025 member server, <code>FS01</code>, with a separate data disk for Finance and HR shares. Domain clients were used for access tests.</p>
+            <div class="detail-flow" aria-label="Role-based file access model">
+              <div><strong>User</strong><small>Department account</small></div><span aria-hidden="true">→</span>
+              <div><strong>Global group</strong><small>Finance / HR role</small></div><span aria-hidden="true">→</span>
+              <div><strong>Domain local group</strong><small>Resource access</small></div><span aria-hidden="true">→</span>
+              <div><strong>FS01 share</strong><small>SMB + NTFS</small></div>
+            </div>
+            <p class="detail-hint">Using groups made it possible to change access when someone moved departments without editing individual file permissions.</p>
+          </section>
+          <section class="detail-section" aria-labelledby="fs-cases">
+            <p class="eyebrow">Work completed</p><h2 id="fs-cases">Six support tickets</h2>
+            <div class="case-list">
+              <div class="case-entry"><span class="case-number">2001</span><div><h3>Finance permissions</h3><p>Created Modify and Read-only roles. Confirmed Finance users could edit, reviewers could read, and unrelated accounts were denied. An early failure came from an incorrectly typed network path.</p></div></div>
+              <div class="case-entry"><span class="case-number">2002</span><div><h3>HR share</h3><p>Set up a separate HR share and tested access using HR and Finance accounts. The direct HR path refused the Finance user as intended.</p></div></div>
+              <div class="case-entry"><span class="case-number">2003</span><div><h3>Automatic drive mapping</h3><p>Mapped Finance to <code>F:</code> and HR to <code>H:</code> through Group Policy Preferences. I corrected an AND condition to OR so either authorized Finance group could receive the drive.</p></div></div>
+              <div class="case-entry"><span class="case-number">2004</span><div><h3>Department transfer</h3><p>Moved a test account from Finance to HR, changed group membership, then verified that the correct drive and share access appeared after a fresh sign-in.</p></div></div>
+              <div class="case-entry"><span class="case-number">2005</span><div><h3>Deleted file recovery</h3><p>Backed up the Finance share, deleted <code>Budget-2026.txt</code>, and restored just that file. I verified its content and original access-control entries after recovery.</p></div></div>
+              <div class="case-entry"><span class="case-number">2006</span><div><h3>Access denied after joining a group</h3><p>A user's membership was updated, but access remained denied until the old Windows logon token was replaced by a new sign-in.</p></div></div>
+            </div>
+          </section>
+          <section class="detail-section" aria-labelledby="fs-investigation">
+            <p class="eyebrow">Troubleshooting example</p><h2 id="fs-investigation">Why was Finance still denying access?</h2>
+            <div class="detail-steps">
+              <div><span>Problem</span><p>The test user had been added to <code>GG_Finance_Users</code>, but the Finance share still returned Access denied.</p></div>
+              <div><span>Cause</span><p>The current sign-in session held an old security token that did not include the user's new group membership.</p></div>
+              <div><span>Verification</span><p>After a full sign-out and sign-in, <code>whoami /groups</code> showed the Finance groups and the share opened. I did not change the file-server permissions to resolve it.</p></div>
+            </div>
+          </section>
+          <section class="detail-section" aria-labelledby="fs-lessons">
+            <p class="eyebrow">What I took from this</p><h2 id="fs-lessons">Check the whole access path</h2>
+            <p>When a mapped drive or shared folder fails, the cause might be the UNC path, DNS, network connectivity, group membership, SMB permissions, NTFS permissions, Group Policy targeting, or the current logon token. This lab helped me separate those layers instead of changing permissions at random.</p>
+          </section>
+          <section class="detail-section detail-limitations" aria-labelledby="fs-limits">
+            <h2 id="fs-limits">Scope and limitations</h2>
+            <p>This is a personal lab, not a production file server. The one-time recovery backup was stored on the same FS01 VM, so it demonstrates restoration but does not provide off-site protection or a backup schedule.</p>
+          </section>
+        </article>
+        <aside class="detail-sidebar" aria-label="Project information">
+          <div class="detail-side-card"><h2>Project facts</h2><dl><dt>Server</dt><dd>FS01 · Windows Server 2025</dd><dt>Domain</dt><dd>lab.local</dd><dt>Access</dt><dd>AGDLP-style groups</dd><dt>Cases</dt><dd>6 support tickets</dd><dt>Evidence</dt><dd>PDF report + screenshots</dd></dl></div>
+          <div class="detail-side-card"><h2>See the evidence</h2><p>Permission tests, Group Policy, drive mapping, backup and restore are documented in the original report.</p><a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/blob/main/windows-server/project-02-file-server-access-recovery/P2_File_Server_Access_and_Recovery_FINAL.pdf" target="_blank" rel="noopener noreferrer">Open the full report ↗</a></div>
+        </aside>
+      </div>
+      <nav class="detail-next" aria-label="Other projects"><a href="active-directory.html">← Active Directory</a><a href="networking.html">Next: Networking labs →</a></nav>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+</body>
+</html>

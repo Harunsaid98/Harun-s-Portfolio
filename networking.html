@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cisco Packet Tracer networking labs documenting VLAN access ports, trunks, static routing and DHCP per VLAN.">
+  <title>Networking Labs | Harun</title>
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme === "dark" || (!savedTheme && matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    } catch {
+      // Use the default theme if preferences are unavailable
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="header-container"></div>
+  <main id="main">
+    <div class="detail-container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><a href="projects.html">Projects</a><span aria-hidden="true">/</span><span>Networking labs</span></nav>
+      <header class="detail-hero">
+        <div class="detail-kicker">Cisco Packet Tracer <span aria-hidden="true">·</span> Switching &amp; routing</div>
+        <h1>Networking labs</h1>
+        <p class="detail-lead">A collection of smaller labs where I configured and tested VLAN access ports, 802.1Q trunks, static routes and DHCP pools. Each lab builds on networking fundamentals.</p>
+        <div class="detail-tags"><span>VLANs</span><span>802.1Q</span><span>Routing</span><span>DHCP</span><span>Cisco IOS</span></div>
+        <div class="detail-actions"><a class="button button-primary" href="#network-labs">Explore the four labs ↓</a><a class="button button-outline" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/networking" target="_blank" rel="noopener noreferrer">Original configurations ↗</a></div>
+      </header>
+      <div class="detail-columns">
+        <article class="detail-main" id="network-labs">
+          <section class="detail-section" id="access" aria-labelledby="vlan-access-title">
+            <p class="eyebrow">Lab 03 · Switching</p><h2 id="vlan-access-title">VLAN access ports</h2>
+            <p>I connected three PCs to one switch, placed two devices in VLAN 10 and one in VLAN 20, and tested which hosts could communicate. All three PCs deliberately used the same <code>192.168.1.0/24</code> subnet so the test focused on VLAN separation.</p>
+            <div class="network-diagram" aria-label="Two PCs in VLAN 10 and one isolated PC in VLAN 20"><div><strong>PC0 + PC1</strong><small>VLAN 10 · STAFF</small></div><span aria-hidden="true">—</span><div><strong>Layer 2 switch</strong><small>Access ports</small></div><span aria-hidden="true">—</span><div><strong>PC2</strong><small>VLAN 20 · MANAGEMENT</small></div></div>
+            <div class="detail-steps compact-steps">
+              <div><span>Configured</span><p>Created VLANs 10 and 20, assigned access ports and saved the switch configuration.</p></div>
+              <div><span>Tested</span><p>PC0 could ping PC1 in the same VLAN, but could not reach PC2 in the other VLAN.</p></div>
+              <div><span>Takeaway</span><p>A Layer 2 switch separates broadcast domains even when devices share an IP subnet.</p></div>
+            </div>
+            <div class="detail-code"><span>Key verification commands</span><code>show vlan brief</code><code>ping 192.168.1.20</code><code>ping 192.168.1.30</code></div>
+            <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/networking/project-03-vlan-access-ports" target="_blank" rel="noopener noreferrer">See the original lab configuration ↗</a>
+          </section>
+          <section class="detail-section" id="trunk" aria-labelledby="trunk-title">
+            <p class="eyebrow">Lab 04 · Switching</p><h2 id="trunk-title">VLAN trunk between switches</h2>
+            <p>I linked two switches with an 802.1Q trunk so VLAN 10 and VLAN 20 could travel across one physical connection. PCs in the same VLAN communicated across the switches, while traffic stayed separated between VLANs.</p>
+            <div class="network-diagram" aria-label="Two switches connected through an 802.1Q trunk"><div><strong>SW0</strong><small>VLANs 10 &amp; 20</small></div><span aria-hidden="true">⟷</span><div><strong>802.1Q trunk</strong><small>Gi0/1 · allowed 10,20</small></div><span aria-hidden="true">⟷</span><div><strong>SW1</strong><small>VLANs 10 &amp; 20</small></div></div>
+            <div class="detail-steps compact-steps">
+              <div><span>Configured</span><p>Made <code>Gi0/1</code> a trunk and allowed VLANs 10 and 20 between switches.</p></div>
+              <div><span>Verified</span><p>Same-VLAN PCs on different switches communicated successfully; cross-VLAN traffic remained blocked without routing.</p></div>
+              <div><span>Takeaway</span><p>A trunk carries multiple VLANs over one link, but does not provide inter-VLAN routing.</p></div>
+            </div>
+            <div class="detail-code"><span>Key verification commands</span><code>show vlan brief</code><code>show interfaces trunk</code></div>
+            <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/networking/project-04-vlan-trunk-between-switches" target="_blank" rel="noopener noreferrer">See the original lab configuration ↗</a>
+          </section>
+          <section class="detail-section" id="routing" aria-labelledby="routing-title">
+            <p class="eyebrow">Lab 06 · Routing</p><h2 id="routing-title">Static routing between two LANs</h2>
+            <p>I connected two separate networks through two routers. Each router could already reach its local network, so I added static routes for the network on the other side.</p>
+            <div class="network-diagram" aria-label="A left LAN and right LAN connected through two routers"><div><strong>LAN A</strong><small>192.168.1.0/24</small></div><span aria-hidden="true">—</span><div><strong>R0 ↔ R1</strong><small>10.0.0.0/30</small></div><span aria-hidden="true">—</span><div><strong>LAN B</strong><small>192.168.2.0/24</small></div></div>
+            <div class="detail-steps compact-steps">
+              <div><span>Configured</span><p>Added a route to the remote LAN on each router using the neighboring router as the next hop.</p></div>
+              <div><span>Verified</span><p>Checked <code>show ip route</code> and ping tests. PCs on opposite sides could communicate once routes were added.</p></div>
+              <div><span>Takeaway</span><p>A router needs a route for networks that are not directly connected.</p></div>
+            </div>
+            <div class="detail-code"><span>Static route examples</span><code>ip route 192.168.2.0 255.255.255.0 10.0.0.2</code><code>ip route 192.168.1.0 255.255.255.0 10.0.0.1</code></div>
+            <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/networking/project-06-static-routing-between-two-routers" target="_blank" rel="noopener noreferrer">See the original lab configuration ↗</a>
+          </section>
+          <section class="detail-section" id="dhcp" aria-labelledby="dhcp-title">
+            <p class="eyebrow">Lab 07 · DHCP &amp; VLANs</p><h2 id="dhcp-title">DHCP per VLAN</h2>
+            <p>I configured VLAN 10 for IT and VLAN 20 for Sales, connected the switch to the router with a trunk, and created a router subinterface and DHCP pool for each VLAN.</p>
+            <div class="network-diagram" aria-label="Two VLANs receive addresses from router-based DHCP pools"><div><strong>VLAN 10</strong><small>192.168.10.0/24</small></div><span aria-hidden="true">⟷</span><div><strong>Router</strong><small>802.1Q · DHCP</small></div><span aria-hidden="true">⟷</span><div><strong>VLAN 20</strong><small>192.168.20.0/24</small></div></div>
+            <div class="detail-steps compact-steps">
+              <div><span>Configured</span><p>Set gateways to <code>192.168.10.1</code> and <code>192.168.20.1</code>, and reserved the first 20 addresses of both networks.</p></div>
+              <div><span>Investigated</span><p>A Sales client initially received an APIPA <code>169.254.x.x</code> address. I checked the VLAN assignment, trunk, interfaces and DHCP configuration.</p></div>
+              <div><span>Evidence status</span><p>The IT client received <code>192.168.10.21</code> from DHCP. The Sales pool was configured, but some final lease, binding and ping screenshots are still pending in the README.</p></div>
+            </div>
+            <div class="detail-code"><span>Key verification commands</span><code>show interfaces trunk</code><code>show ip interface brief</code><code>show ip dhcp binding</code></div>
+            <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/tree/main/networking/project-07-dhcp-per-vlan" target="_blank" rel="noopener noreferrer">See the original lab configuration &amp; pending evidence ↗</a>
+          </section>
+          <section class="detail-section detail-limitations" aria-labelledby="network-scope">
+            <h2 id="network-scope">About these labs</h2>
+            <p>These are Cisco Packet Tracer learning exercises, not a deployed business network. The linked READMEs contain the full addressing plans, configurations and verification commands. Some screenshot evidence is still being added.</p>
+          </section>
+        </article>
+        <aside class="detail-sidebar" aria-label="Networking project links">
+          <div class="detail-side-card"><h2>Jump to a lab</h2><nav class="detail-jump" aria-label="Networking lab navigation"><a href="#access">03 · VLAN access ports</a><a href="#trunk">04 · VLAN trunks</a><a href="#routing">06 · Static routing</a><a href="#dhcp">07 · DHCP per VLAN</a></nav></div>
+          <div class="detail-side-card"><h2>Lab tools</h2><dl><dt>Simulator</dt><dd>Cisco Packet Tracer</dd><dt>Switching</dt><dd>VLAN, access, trunk</dd><dt>Routing</dt><dd>Static routes, ROAS</dd><dt>Addressing</dt><dd>IPv4, DHCP</dd></dl></div>
+        </aside>
+      </div>
+      <nav class="detail-next" aria-label="Other projects"><a href="file-server.html">← File server project</a><a href="projects.html">All projects →</a></nav>
+    </div>
+  </main>
+  <div id="footer-container"></div>
+</body>
+</html>
