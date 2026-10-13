@@ -1,73 +1,82 @@
-// Wait for the DOM to load before executing
-document.addEventListener("DOMContentLoaded", () => {
-  // === Dynamically Load Header and Footer ===
-  
-  // Load header.html into the #header-container
-  fetch("header.html")
-      .then((response) => response.text())
-      .then((data) => {
-          document.getElementById("header-container").innerHTML = data;
-          attachDarkModeListener(); // Attach dark mode functionality after loading header
-      })
-      .catch((error) => console.error("Error loading header:", error));
+// Load the header and footer
+document.addEventListener("DOMContentLoaded", async () => {
+  const savedTheme = (() => {
+    try {
+      return localStorage.getItem("portfolio-theme");
+    } catch {
+      return null;
+    }
+  })();
 
-  // Load footer.html into the #footer-container
-  fetch("footer.html")
-      .then((response) => response.text())
-      .then((data) => {
-          document.getElementById("footer-container").innerHTML = data;
-      })
-      .catch((error) => console.error("Error loading footer:", error));
+  if (savedTheme === "dark") {
+    document.documentElement.dataset.theme = "dark";
+  }
 
-  // === Dark Mode Toggle ===
-  function attachDarkModeListener() {
-      const darkModeToggle = document.getElementById("dark-mode-toggle");
+  async function loadSharedContent(targetId, file) {
+    const target = document.getElementById(targetId);
+    if (!target) return false;
 
-      // Check localStorage for dark mode preference
-      if (localStorage.getItem("dark-mode") === "enabled") {
-          enableDarkMode(); // Enable dark mode if saved in localStorage
+    try {
+      const response = await fetch(file);
+      if (!response.ok) throw new Error(`Could not load ${file}: ${response.status}`);
+      target.innerHTML = await response.text();
+      return true;
+    } catch (error) {
+      console.error("Failed to load shared page content:", error);
+      return false;
+    }
+  }
+
+  if (await loadSharedContent("header-container", "header.html")) {
+    const page = window.location.pathname.split("/").pop() || "index.html";
+    document.querySelectorAll(".nav-links a").forEach((link) => {
+      if (link.getAttribute("href") === page) {
+        link.setAttribute("aria-current", "page");
       }
+    });
 
-      // Add click event to the toggle button
-      darkModeToggle.addEventListener("click", () => {
-          if (document.body.classList.contains("dark-theme")) {
-              disableDarkMode(); // Disable dark mode
-          } else {
-              enableDarkMode(); // Enable dark mode
-          }
+    const themeButton = document.getElementById("dark-mode-toggle");
+    function updateThemeButton() {
+      const dark = document.documentElement.dataset.theme === "dark";
+      themeButton.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
+      themeButton.setAttribute("aria-pressed", String(dark));
+    }
+    if (themeButton) {
+      updateThemeButton();
+      themeButton.addEventListener("click", () => {
+        const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = next;
+        try {
+          localStorage.setItem("portfolio-theme", next);
+        } catch {
+          // Continue using the selected theme if storage is unavailable
+        }
+        updateThemeButton();
       });
+    }
   }
 
-  // Function to enable dark mode
-  function enableDarkMode() {
-      document.body.classList.add("dark-theme"); // Add the dark-theme class to the body
-      localStorage.setItem("dark-mode", "enabled"); // Save preference in localStorage
+  if (await loadSharedContent("footer-container", "footer.html")) {
+    const year = document.querySelector("[data-year]");
+    if (year) year.textContent = String(new Date().getFullYear());
   }
 
-  // Function to disable dark mode
-  function disableDarkMode() {
-      document.body.classList.remove("dark-theme"); // Remove the dark-theme class from the body
-      localStorage.setItem("dark-mode", "disabled"); // Save preference in localStorage
+  // Back to Top Button
+  const backToTop = document.createElement("button");
+  backToTop.type = "button";
+  backToTop.id = "back-to-top";
+  backToTop.setAttribute("aria-label", "Back to top");
+  backToTop.textContent = "↑";
+  document.body.appendChild(backToTop);
+
+  function updateBackToTop() {
+    backToTop.classList.toggle("is-visible", window.scrollY > 280);
   }
 
-  // === Back to Top Button ===
-  // Create and add the "Back to Top" button dynamically
-  const backToTopButton = document.createElement("button"); // Create a button element
-  backToTopButton.innerHTML = `<i class="fa-solid fa-arrow-up"></i>`; // Add Font Awesome icon
-  backToTopButton.id = "back-to-top"; // Set the ID for styling
-  document.body.appendChild(backToTopButton); // Append the button to the body
+  window.addEventListener("scroll", updateBackToTop, { passive: true });
+  updateBackToTop();
 
-  // Show or hide the "Back to Top" button based on scroll position
-  window.addEventListener("scroll", () => {
-      if (window.scrollY > 200) { // If scrolled down 200px or more
-          backToTopButton.style.display = "flex"; // Show the button
-      } else {
-          backToTopButton.style.display = "none"; // Hide the button
-      }
-  });
-
-  // Smooth scroll to the top when the button is clicked
-  backToTopButton.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll smoothly to the top
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });
