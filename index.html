@@ -60,6 +60,7 @@
           </div>
         </div>
         <p class="lab-overview-footer">VMware lab · Windows Server 2025 · Learning environment</p>
+        <a class="lab-overview-link" href="projects.html">Explore my lab reports <span aria-hidden="true">→</span></a>
       </aside>
     </section>
 
@@ -101,10 +102,17 @@
     <section class="section container" aria-labelledby="approach-title">
       <div class="approach">
         <div>
-          <p class="eyebrow">How I work</p>
-          <h2 id="approach-title">A problem I solved in the lab</h2>
+          <p class="eyebrow">From my file server lab</p>
+          <h2 id="approach-title">When a group change didn't fix access</h2>
+          <p>My projects include the problems I ran into, not just the final configuration. This was one of the cases I investigated on FS01.</p>
         </div>
-        <p>A user still couldn't open a Finance share after being added to the correct group. The folder permissions weren't the problem: Windows was using an old logon token. Signing out and back in applied the new membership.</p>
+        <div class="case-note" aria-label="File server troubleshooting case">
+          <p class="case-note-label">Support case #2006 · FS01</p>
+          <div class="case-note-row"><strong>Problem</strong><span>Finance share still returned Access denied</span></div>
+          <div class="case-note-row"><strong>Cause</strong><span>The current Windows logon token had the old group membership</span></div>
+          <div class="case-note-row"><strong>Verified fix</strong><span>Sign out and back in, then test access again</span></div>
+          <a class="text-link" href="https://github.com/Harunsaid98/network-and-cloud-infrastructure/blob/main/windows-server/project-02-file-server-access-recovery/P2_File_Server_Access_and_Recovery_FINAL.pdf" target="_blank" rel="noopener noreferrer">Read the full report ↗</a>
+        </div>
       </div>
     </section>
   </main>
